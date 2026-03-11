@@ -23,4 +23,10 @@ protected:
 	float Direction;
 	TObjectPtr<class ACharacter> Character;
 	TObjectPtr<class UCharacterMovementComponent> CharacterMovement;
+	UPROPERTY(BlueprintReadOnly, Category = "Animation")
+	float AimRotationPitch = {};
+	UPROPERTY(BlueprintReadOnly, Category = "Animation")
+	float AimRotationCurYaw = {};
+	UPROPERTY(BlueprintReadOnly, Category = "Animation")
+	float AimRotationYawOffset = {};
 };

@@ -4,6 +4,7 @@
 #include "Character/MyCharacter/MyCharacter.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Animation/AnimMontage.h"
 
 // Sets default values
 AMyCharacter::AMyCharacter()
@@ -43,5 +44,13 @@ void AMyCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
+}
+
+void AMyCharacter::Fire()
+{
+	if(FireMontage && GetMesh()->GetAnimInstance()->Montage_IsPlaying(FireMontage) == false)
+	{
+		PlayAnimMontage(FireMontage);
+	}
 }
 

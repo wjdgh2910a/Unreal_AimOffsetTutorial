@@ -19,6 +19,7 @@ public:
 	virtual void BeginPlay() override;
 	void Move(const struct FInputActionValue& Value);
 	void Look(const struct FInputActionValue& Value);
+	void Fire(const struct FInputActionValue& Value);
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<class UInputMappingContext> DefaultMappingContext;
@@ -26,5 +27,7 @@ protected:
 	TObjectPtr<class UInputAction> MoveAction;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
 	TObjectPtr<class UInputAction> LookAction;
-	TObjectPtr<class ACharacter> MyCharacter;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Input")
+	TObjectPtr<class UInputAction> FireAction;
+	TObjectPtr<class AMyCharacter> MyCharacter;
 };

@@ -21,6 +21,7 @@ void AMyPlayerController::SetupInputComponent()
 	{
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Look);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Fire);
 	}
 }
 
@@ -57,4 +58,9 @@ void AMyPlayerController::Look(const FInputActionValue& Value)
 		MyCharacter->AddControllerYawInput(LookAxisVector.X);
 		MyCharacter->AddControllerPitchInput(LookAxisVector.Y);
 	}
+}
+
+void AMyPlayerController::Fire(const FInputActionValue& Value)
+{
+	MyCharacter->Fire();
 }

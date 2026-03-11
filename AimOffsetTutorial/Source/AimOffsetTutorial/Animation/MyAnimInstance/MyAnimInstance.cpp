@@ -4,6 +4,7 @@
 #include "Animation/MyAnimInstance/MyAnimInstance.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/KismetMathLibrary.h"
 
 void UMyAnimInstance::NativeInitializeAnimation()
 {
@@ -22,6 +23,7 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	{
 		return;
 	}
+
 	FVector Velocity = CharacterMovement->Velocity;
 	Speed = Velocity.Size2D();
 	FRotator Rotation = Character->GetActorRotation();
@@ -29,4 +31,18 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	GEngine->AddOnScreenDebugMessage(1, 0.f, FColor::Yellow, FString::Printf(TEXT("Speed: %f"), Speed));
 	GEngine->AddOnScreenDebugMessage(2, 0.f, FColor::Yellow, FString::Printf(TEXT("Direction: %f"), Direction));
+
+	float AimRotationPrevYaw = AimRotationCurYaw;
+	AimRotationCurYaw = Character->GetActorRotation().Yaw;
+	AimRotationPitch = Character->GetBaseAimRotation().Pitch;
+	if (Speed != 0.f)
+	{
+		AimRotationYawOffset = 0;
+	}
+	else
+	{
+		AimRotationYawOffset -= AimRotationCurYaw - AimRotationPrevYaw;
+		AimRotationYawOffset = UKismetMathLibrary::NormalizeAxis(AimRotationYawOffset);
+	}
+
 }

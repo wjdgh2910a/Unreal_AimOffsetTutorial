@@ -41,8 +41,19 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	}
 	else
 	{
-		AimRotationYawOffset -= AimRotationCurYaw - AimRotationPrevYaw;
-		AimRotationYawOffset = UKismetMathLibrary::NormalizeAxis(AimRotationYawOffset);
+		if(GetCurveValue(TEXT("Turning")) > 0.f)
+		{
+			float TuringPrevValue = TurningCurValue;
+			TurningCurValue = GetCurveValue(TEXT("Rotation"));
+			AimRotationYawOffset += TurningCurValue - TuringPrevValue;
+			AimRotationYawOffset = FMath::Clamp(AimRotationYawOffset, -90.f, 90.f);
+		}
+		else
+		{
+			AimRotationYawOffset -= AimRotationCurYaw - AimRotationPrevYaw;
+			AimRotationYawOffset = UKismetMathLibrary::NormalizeAxis(AimRotationYawOffset);
+		}
 	}
+
 
 }

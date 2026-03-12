@@ -29,4 +29,5 @@ protected:
 	float AimRotationCurYaw = {};
 	UPROPERTY(BlueprintReadOnly, Category = "Animation")
 	float AimRotationYawOffset = {};
+	float TurningCurValue = {};
 };

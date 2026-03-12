@@ -21,7 +21,7 @@ protected:
 	float Speed;
 	UPROPERTY(BlueprintReadOnly, Category = "Animation")
 	float Direction;
-	TObjectPtr<class ACharacter> Character;
+	TObjectPtr<class AMyCharacter> Character;
 	TObjectPtr<class UCharacterMovementComponent> CharacterMovement;
 	UPROPERTY(BlueprintReadOnly, Category = "Animation")
 	float AimRotationPitch = {};

@@ -5,11 +5,12 @@
 #include "GameFramework/Character.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Kismet/KismetMathLibrary.h"
+#include "Character/MyCharacter/MyCharacter.h"
 
 void UMyAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
-	Character = Cast<ACharacter>(TryGetPawnOwner());
+	Character = Cast<AMyCharacter>(TryGetPawnOwner());
 	if(Character)
 	{
 		CharacterMovement = Character->GetCharacterMovement();
@@ -41,6 +42,7 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	}
 	else
 	{
+
 		if(GetCurveValue(TEXT("Turning")) > 0.f)
 		{
 			float TuringPrevValue = TurningCurValue;
@@ -53,6 +55,7 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 			AimRotationYawOffset -= AimRotationCurYaw - AimRotationPrevYaw;
 			AimRotationYawOffset = UKismetMathLibrary::NormalizeAxis(AimRotationYawOffset);
 		}
+		GEngine->AddOnScreenDebugMessage(3, 0.f, FColor::Yellow, FString::Printf(TEXT("AimRotationYawOffset: %f"), AimRotationYawOffset));
 	}
 
 

@@ -53,3 +53,58 @@ void AMyCharacter::Fire()
 		PlayAnimMontage(FireMontage);
 	}
 }
+
+void AMyCharacter::TurnLeftMontagePlay()
+{
+	if(TurnLeftMontage/* && GetMesh()->GetAnimInstance()->Montage_IsPlaying(TurnLeftMontage) == false*/)
+	{
+		if(GetMesh()->GetAnimInstance()->Montage_IsPlaying(TurnLeftMontage) == false)
+			PlayAnimMontage(TurnLeftMontage);
+		else
+		{
+			float SequenceLength = TurnLeftMontage->GetPlayLength();
+			float CurrentPosition = GetMesh()->GetAnimInstance()->Montage_GetPosition(TurnLeftMontage);
+
+			float RemainingRatio = 1.0f - (CurrentPosition / SequenceLength);
+
+			if (RemainingRatio <= 0.5f)
+			{
+				PlayAnimMontage(TurnLeftMontage);
+			}
+		}
+	}
+}
+
+void AMyCharacter::TurnRightMontagePlay()
+{
+	if(TurnRightMontage /*&& GetMesh()->GetAnimInstance()->Montage_IsPlaying(TurnRightMontage) == false*/)
+	{
+		if(GetMesh()->GetAnimInstance()->Montage_IsPlaying(TurnRightMontage) == false)
+			PlayAnimMontage(TurnRightMontage);
+		else
+		{
+			float SequenceLength = TurnRightMontage->GetPlayLength();
+			float CurrentPosition = GetMesh()->GetAnimInstance()->Montage_GetPosition(TurnRightMontage);
+
+			float RemainingRatio = 1.0f - (CurrentPosition / SequenceLength);
+
+			if (RemainingRatio <= 0.5f)
+			{
+				PlayAnimMontage(TurnRightMontage);
+			}
+		}
+	}
+}
+
+void AMyCharacter::StopTurnMontage()
+{
+	if(TurnLeftMontage && GetMesh()->GetAnimInstance()->Montage_IsPlaying(TurnLeftMontage))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Stop(0.2f, TurnLeftMontage);
+	}
+	if(TurnRightMontage && GetMesh()->GetAnimInstance()->Montage_IsPlaying(TurnRightMontage))
+	{
+		GetMesh()->GetAnimInstance()->Montage_Stop(0.2f, TurnRightMontage);
+	}
+}
+

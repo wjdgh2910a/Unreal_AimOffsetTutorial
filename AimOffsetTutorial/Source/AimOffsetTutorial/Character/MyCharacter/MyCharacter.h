@@ -26,6 +26,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	void Fire();
+	void TurnLeftMontagePlay();
+	void TurnRightMontagePlay();
+	void StopTurnMontage();
 protected:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	TObjectPtr<class UCameraComponent> CameraComp;
@@ -33,5 +36,9 @@ protected:
 	TObjectPtr<class USpringArmComponent> SpringArmComp;
 	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
 	TObjectPtr<class UAnimMontage> FireMontage;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
+	TObjectPtr<class UAnimMontage> TurnLeftMontage;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category = "Animation")
+	TObjectPtr<class UAnimMontage> TurnRightMontage;
 
 };

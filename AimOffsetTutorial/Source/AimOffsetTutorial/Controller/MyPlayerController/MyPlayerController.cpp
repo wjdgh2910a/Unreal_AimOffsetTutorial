@@ -41,6 +41,7 @@ void AMyPlayerController::Move(const FInputActionValue& Value)
 	FVector2D MovementVector = Value.Get<FVector2D>();
 	if(MyCharacter)
 	{
+		MyCharacter->StopTurnMontage();
 		FRotator Rotation = MyCharacter->GetControlRotation();
 		FRotator YawRotation(0, Rotation.Yaw, 0);
 		FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);

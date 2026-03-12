@@ -42,6 +42,12 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 	}
 	else
 	{
+		AimRotationYawOffset -= AimRotationCurYaw - AimRotationPrevYaw;
+		AimRotationYawOffset = UKismetMathLibrary::NormalizeAxis(AimRotationYawOffset);
+		if(AimRotationYawOffset >= 90.f)
+			Character->TurnLeftMontagePlay();
+		else if(AimRotationYawOffset <= -90.f)
+			Character->TurnRightMontagePlay();
 
 		if(GetCurveValue(TEXT("Turning")) > 0.f)
 		{
@@ -52,8 +58,6 @@ void UMyAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 		}
 		else
 		{
-			AimRotationYawOffset -= AimRotationCurYaw - AimRotationPrevYaw;
-			AimRotationYawOffset = UKismetMathLibrary::NormalizeAxis(AimRotationYawOffset);
 		}
 		GEngine->AddOnScreenDebugMessage(3, 0.f, FColor::Yellow, FString::Printf(TEXT("AimRotationYawOffset: %f"), AimRotationYawOffset));
 	}
